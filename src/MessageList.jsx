@@ -6,13 +6,12 @@ class MessageList extends React.Component {
     render () {
         return (
             <div id="message-list">
-                { this.props.messages.map((message) => {
-                    return <Message message={message} />
+                { this.props.messages.map((message, index) => {
+                    return <Message message={message} key={index} />
                 })}
             </div>
         );
     }
-
 }
 
 export default MessageList;
