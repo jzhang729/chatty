@@ -2,10 +2,13 @@ import React from "react";
 
 class Message extends React.Component {
     render () {
+        var username = this.props.message.username;
+        var content = this.props.message.content;
+        
         return (
             <div className="message">
-                <span className="username">Anonymous1</span>
-                <span className="content">I won't be impressed with technology until I can download food.</span>
+                <span className="username">{username}</span>
+                <span className="content">{content}</span>
             </div>
         );
     }
