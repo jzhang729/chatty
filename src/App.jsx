@@ -7,7 +7,7 @@ class App extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            currentUser: { name: "Bob" },
+            currentUser: { name: "Anonymous" },
             messages: [
                 {
                     username: "Bob",
@@ -19,16 +19,35 @@ class App extends Component {
                 }
             ]
         }
+        this._handleNewMessage = this._handleNewMessage.bind(this);
     }
 
-    render() {
+    componentDidMount () {
+        this.socket = new WebSocket("ws://localhost:4000");
+
+    }
+
+    _handleNewMessage (e) {
+        if (e.key === "Enter") {
+            var msg = {
+                username: "Anonymous",
+                content: e.target.value
+            }
+
+            this.setState({ messages: [...this.state.messages, msg] });
+        }
+    }
+
+    render () {
         return (
             <div className="wrapper">
                 <nav>
                     <h1>Chatter</h1>
                 </nav>
                 <MessageList messages={this.state.messages} />
-                <ChatBar />
+                <ChatBar
+                    currentUser={this.state.currentUser}
+                    onKeyUp={this._handleNewMessage} />
             </div>
         );
     }
