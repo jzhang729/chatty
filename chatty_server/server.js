@@ -31,7 +31,6 @@ wss.on("connection", (ws) => {
                 break;
             case "postNotification":
                 newMessage.type = "incomingNotification";
-                console.log(newMessage);
                 break;
             default:
                 throw new Error("Unknown event type: ", newMessage.type);

@@ -23,11 +23,9 @@ class App extends Component {
             const message = JSON.parse(evt.data);
             switch (message.type) {
                 case "incomingMessage":
-                    newState.data.currentUser.name = message.username;
                     newState.data.messages.push(message);
                     break;
                 case "incomingNotification":
-                    newState.data.currentUser.name = message.username;
                     newState.data.messages.push(message);
                     break;
                 default:
@@ -47,12 +45,19 @@ class App extends Component {
             }
 
             this.socket.send(JSON.stringify(msg));
+            e.target.value = "";
         }
+
+
     }
 
     _handleUser (e) {
         var oldUser = this.state.data.currentUser.name;
         var newUser = e.target.value;
+
+        var newState = this.state;
+        newState.data.currentUser.name = newUser;
+        this.setState({ newState });
 
         var msg = {
             type: "postNotification",
