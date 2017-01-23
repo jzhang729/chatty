@@ -8,6 +8,7 @@ class App extends Component {
         super(props)
         this.state = {
             data: {
+                userCount: 0,
                 currentUser: { name: "Anonymous" },
                 messages: []
             }
@@ -27,6 +28,9 @@ class App extends Component {
                     break;
                 case "incomingNotification":
                     newState.data.messages.push(message);
+                    break;
+                case "userCount":
+                    newState.data.userCount = message.content;
                     break;
                 default:
                     throw new Error("Huh?");
@@ -73,6 +77,7 @@ class App extends Component {
             <div className="wrapper">
                 <nav>
                     <h1>Chatter</h1>
+                    <span className="userCount">{this.state.data.userCount} users online</span>
                 </nav>
                 <MessageList
                     messages={this.state.data.messages} />
